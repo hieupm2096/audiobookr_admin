@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resource>
+    <color name="background_color">#212332</color>
+    <color name="illusion">#2A2D3E</color>
+    <color name="errorText">#D32F2F</color>
+    <color name="turbo">#FFE100</color>
+    <color name="science_blue">#0073D4</color>
+    <color name="charade">#302F41</color>
+    <color name="torchRed">#FF202B</color>
+</resource>

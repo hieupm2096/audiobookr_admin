@@ -3,83 +3,83 @@ import 'package:flutter/material.dart';
 
 enum SideMenuSelection { dashboard, book, music, fiction }
 
-class SideMenu extends StatefulWidget {
-  const SideMenu({Key? key}) : super(key: key);
-
-  @override
-  State<SideMenu> createState() => _SideMenuState();
+extension SideMenuSelectionExt on SideMenuSelection {
+  String get label {
+    switch (this) {
+      case SideMenuSelection.dashboard:
+        return 'Dashboard';
+      case SideMenuSelection.book:
+        return 'Book';
+      case SideMenuSelection.music:
+        return 'Music';
+      case SideMenuSelection.fiction:
+        return 'Fiction';
+    }
+  }
 }
 
-class _SideMenuState extends State<SideMenu> {
-  SideMenuSelection _selection = SideMenuSelection.dashboard;
+class SideMenu extends StatelessWidget {
+  final SideMenuSelection selection;
+  final Function(SideMenuSelection selection) onTap;
+
+  const SideMenu({
+    Key? key,
+    required this.selection,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 0.0,
       child: ListView(
         children: [
           DrawerHeader(
             child: Assets.images.logo.image(),
           ),
           DrawerListTile(
-            title: 'Dashboard',
+            title: SideMenuSelection.dashboard.label,
             leading: Assets.icons.menu.menuDashboard.svg(
               height: 16,
-              color: _selection == SideMenuSelection.dashboard
+              color: selection == SideMenuSelection.dashboard
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: _selection == SideMenuSelection.dashboard,
-            onTap: () {
-              setState(() {
-                _selection = SideMenuSelection.dashboard;
-              });
-            },
+            selected: selection == SideMenuSelection.dashboard,
+            onTap: () => onTap(SideMenuSelection.dashboard),
           ),
           DrawerListTile(
-            title: 'Book',
+            title: SideMenuSelection.book.label,
             leading: Assets.icons.menu.menuTran.svg(
               height: 16,
-              color: _selection == SideMenuSelection.book
+              color: selection == SideMenuSelection.book
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: _selection == SideMenuSelection.book,
-            onTap: () {
-              setState(() {
-                _selection = SideMenuSelection.book;
-              });
-            },
+            selected: selection == SideMenuSelection.book,
+            onTap: () => onTap(SideMenuSelection.book),
           ),
           DrawerListTile(
-            title: 'Music',
+            title: SideMenuSelection.music.label,
             leading: Assets.icons.menu.menuTask.svg(
               height: 16,
-              color: _selection == SideMenuSelection.music
+              color: selection == SideMenuSelection.music
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: _selection == SideMenuSelection.music,
-            onTap: () {
-              setState(() {
-                _selection = SideMenuSelection.music;
-              });
-            },
+            selected: selection == SideMenuSelection.music,
+            onTap: () => onTap(SideMenuSelection.music),
           ),
           DrawerListTile(
-            title: 'Fiction',
+            title: SideMenuSelection.fiction.label,
             leading: Assets.icons.menu.menuDoc.svg(
               height: 16,
-              color: _selection == SideMenuSelection.fiction
+              color: selection == SideMenuSelection.fiction
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: _selection == SideMenuSelection.fiction,
-            onTap: () {
-              setState(() {
-                _selection = SideMenuSelection.fiction;
-              });
-            },
+            selected: selection == SideMenuSelection.fiction,
+            onTap: () => onTap(SideMenuSelection.fiction),
           ),
         ],
       ),

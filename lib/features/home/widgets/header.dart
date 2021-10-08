@@ -1,11 +1,13 @@
 import 'package:audiobookr_admin/commons/responsive/responsive.dart';
-import 'package:audiobookr_admin/gen/assets.gen.dart';
 import 'package:audiobookr_admin/gen/colors.gen.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
+  final String title;
+
   const Header({
     Key? key,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class Header extends StatelessWidget {
           ),
         if (!Responsive.isMobile(context))
           Text(
-            "Dashboard",
+            title,
             style: Theme.of(context).textTheme.headline6,
           ),
         if (!Responsive.isMobile(context))
@@ -50,14 +52,12 @@ class ProfileCard extends StatelessWidget {
         border: Border.all(color: Colors.white10),
       ),
       child: Row(
-        children: [
-          Assets.icons.menu.menuProfile.svg(height: 38),
-          if (!Responsive.isMobile(context))
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text("Angelina Jolie"),
-            ),
-          const Icon(Icons.keyboard_arrow_down),
+        children: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text("Angelina Jolie"),
+          ),
+          Icon(Icons.keyboard_arrow_down),
         ],
       ),
     );

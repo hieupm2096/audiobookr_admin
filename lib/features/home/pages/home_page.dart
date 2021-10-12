@@ -1,6 +1,6 @@
 import 'package:audiobookr_admin/commons/responsive/responsive.dart';
-import 'package:audiobookr_admin/commons/routes/router.gr.dart';
-import 'package:audiobookr_admin/features/home/cubit/home_cubit.dart';
+import 'package:audiobookr_admin/commons/routes/page_route_info_ext.dart';
+import 'package:audiobookr_admin/features/app/cubit/router_cubit.dart';
 import 'package:audiobookr_admin/features/home/widgets/header.dart';
 import 'package:audiobookr_admin/features/home/widgets/side_menu.dart';
 import 'package:auto_route/auto_route.dart';
@@ -12,82 +12,75 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: Scaffold(
-        drawer: BlocSelector<HomeCubit, HomeState, SideMenuSelection>(
-          selector: (state) => state.sideMenuSelection,
-          builder: (context, selection) => SideMenu(
-            selection: selection,
-            onTap: (SideMenuSelection selection) =>
-                context.read<HomeCubit>().setSideMenuSelection(selection),
-          ),
-        ),
-        body: SafeArea(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // We want this side menu only for large screen
-              if (Responsive.isDesktop(context))
-                Expanded(
-                  // default flex = 1
-                  // and it takes 1/6 part of the screen
-                  child: BlocSelector<HomeCubit, HomeState, SideMenuSelection>(
-                      selector: (state) => state.sideMenuSelection,
-                      builder: (context, selection) {
-                        return SideMenu(
-                          selection: selection,
-                          onTap: (SideMenuSelection selection) => context
-                              .read<HomeCubit>()
-                              .setSideMenuSelection(selection),
-                        );
-                      }),
-                ),
+    return Scaffold(
+      drawer: BlocSelector<RouterCubit, RouterState, PageRouteInfo>(
+        selector: (state) => state.currentRoute,
+        builder: (context, currentRoute) {
+          return SideMenu(
+            selection: currentRoute,
+            onTap: (route) {
+              context.read<RouterCubit>().setCurrentRoute(route);
+              Navigator.of(context).pop();
+            },
+          );
+        },
+      ),
+      body: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // We want this side menu only for large screen
+            if (Responsive.isDesktop(context))
               Expanded(
-                // It takes 5/6 part of the screen
-                flex: 5,
-                child: Column(
-                  children: [
-                    BlocSelector<HomeCubit, HomeState, SideMenuSelection>(
-                      selector: (state) => state.sideMenuSelection,
-                      builder: (context, selection) => Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Header(
-                          title: selection.label,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child:
-                          BlocSelector<HomeCubit, HomeState, SideMenuSelection>(
-                        selector: (state) => state.sideMenuSelection,
-                        builder: (context, selection) {
-                          return AutoRouter.declarative(
-                            routes: (context) {
-                              return [
-                                if (selection == SideMenuSelection.dashboard)
-                                  const DashboardRoute(),
-                                if (selection == SideMenuSelection.book)
-                                  const BookRoute(),
-                                if (selection == SideMenuSelection.music)
-                                  const MusicRoute(),
-                                if (selection == SideMenuSelection.fiction)
-                                  const FictionRoute(),
-                              ];
-                            },
-                            onNavigate: (routeMatches, isInitial) {
-                              print(routeMatches);
-                              print(isInitial);
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                // default flex = 1
+                // and it takes 1/6 part of the screen
+                child: BlocSelector<RouterCubit, RouterState, PageRouteInfo>(
+                  selector: (state) => state.currentRoute,
+                  builder: (context, currentRoute) {
+                    return SideMenu(
+                      selection: currentRoute,
+                      onTap: (route) =>
+                          context.read<RouterCubit>().setCurrentRoute(route),
+                    );
+                  },
                 ),
               ),
-            ],
-          ),
+            Expanded(
+              // It takes 5/6 part of the screen
+              flex: 5,
+              child: Column(
+                children: [
+                  BlocSelector<RouterCubit, RouterState, PageRouteInfo>(
+                    selector: (state) => state.currentRoute,
+                    builder: (context, currentRoute) => Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Header(
+                        title: currentRoute.label,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child:
+                        BlocSelector<RouterCubit, RouterState, PageRouteInfo>(
+                      selector: (state) => state.currentRoute,
+                      builder: (context, currentRoute) {
+                        return AutoRouter.declarative(
+                          routes: (context) {
+                            return [currentRoute];
+                          },
+                          onNavigate: (routeMatches, isInitial) {
+                            context
+                                .read<RouterCubit>()
+                                .setCurrentRoute(routeMatches.single.toRoute());
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

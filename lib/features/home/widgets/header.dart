@@ -24,8 +24,8 @@ class Header extends StatelessWidget {
             title,
             style: Theme.of(context).textTheme.headline6,
           ),
-        if (!Responsive.isMobile(context))
-          Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
+        // if (!Responsive.isMobile(context))
+        Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         // Expanded(child: SearchField()),
         const ProfileCard()
       ],

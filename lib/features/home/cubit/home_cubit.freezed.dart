@@ -17,10 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HomeStateTearOff {
   const _$HomeStateTearOff();
 
-  _HomeState call({required SideMenuSelection sideMenuSelection}) {
-    return _HomeState(
-      sideMenuSelection: sideMenuSelection,
-    );
+  _HomeState call() {
+    return const _HomeState();
   }
 }
 
@@ -28,19 +26,12 @@ class _$HomeStateTearOff {
 const $HomeState = _$HomeStateTearOff();
 
 /// @nodoc
-mixin _$HomeState {
-  SideMenuSelection get sideMenuSelection => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $HomeStateCopyWith<HomeState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+mixin _$HomeState {}
 
 /// @nodoc
 abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res>;
-  $Res call({SideMenuSelection sideMenuSelection});
 }
 
 /// @nodoc
@@ -50,27 +41,13 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   final HomeState _value;
   // ignore: unused_field
   final $Res Function(HomeState) _then;
-
-  @override
-  $Res call({
-    Object? sideMenuSelection = freezed,
-  }) {
-    return _then(_value.copyWith(
-      sideMenuSelection: sideMenuSelection == freezed
-          ? _value.sideMenuSelection
-          : sideMenuSelection // ignore: cast_nullable_to_non_nullable
-              as SideMenuSelection,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+abstract class _$HomeStateCopyWith<$Res> {
   factory _$HomeStateCopyWith(
           _HomeState value, $Res Function(_HomeState) then) =
       __$HomeStateCopyWithImpl<$Res>;
-  @override
-  $Res call({SideMenuSelection sideMenuSelection});
 }
 
 /// @nodoc
@@ -81,69 +58,33 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 
   @override
   _HomeState get _value => super._value as _HomeState;
-
-  @override
-  $Res call({
-    Object? sideMenuSelection = freezed,
-  }) {
-    return _then(_HomeState(
-      sideMenuSelection: sideMenuSelection == freezed
-          ? _value.sideMenuSelection
-          : sideMenuSelection // ignore: cast_nullable_to_non_nullable
-              as SideMenuSelection,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
-  const _$_HomeState({required this.sideMenuSelection});
-
-  @override
-  final SideMenuSelection sideMenuSelection;
+  const _$_HomeState();
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState(sideMenuSelection: $sideMenuSelection)';
+    return 'HomeState()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'HomeState'))
-      ..add(DiagnosticsProperty('sideMenuSelection', sideMenuSelection));
+    properties..add(DiagnosticsProperty('type', 'HomeState'));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _HomeState &&
-            (identical(other.sideMenuSelection, sideMenuSelection) ||
-                const DeepCollectionEquality()
-                    .equals(other.sideMenuSelection, sideMenuSelection)));
+    return identical(this, other) || (other is _HomeState);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(sideMenuSelection);
-
-  @JsonKey(ignore: true)
-  @override
-  _$HomeStateCopyWith<_HomeState> get copyWith =>
-      __$HomeStateCopyWithImpl<_HomeState>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({required SideMenuSelection sideMenuSelection}) =
-      _$_HomeState;
-
-  @override
-  SideMenuSelection get sideMenuSelection => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(ignore: true)
-  _$HomeStateCopyWith<_HomeState> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _HomeState() = _$_HomeState;
 }

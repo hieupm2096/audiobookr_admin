@@ -1,7 +1,9 @@
 import 'package:audiobookr_admin/commons/routes/router.gr.dart';
+import 'package:audiobookr_admin/features/app/cubit/router_cubit.dart';
 import 'package:audiobookr_admin/gen/colors.gen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final _appRouter = AppRouter();
@@ -11,7 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AudioBookr Admin',
       theme: ThemeData.dark().copyWith(
@@ -20,14 +22,16 @@ class App extends StatelessWidget {
             .apply(bodyColor: Colors.white),
         canvasColor: ColorName.illusion,
       ),
-      routerDelegate: AutoRouterDelegate(
-        _appRouter,
-        navigatorObservers: () => [
-          AutoRouteObserver(),
+      builder: (context, child) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => RouterCubit()),
         ],
+        child: Router(
+          routerDelegate: AutoRouterDelegate(_appRouter),
+          routeInformationParser: _appRouter.defaultRouteParser(),
+          routeInformationProvider: _appRouter.routeInfoProvider(),
+        ),
       ),
-      routeInformationParser: _appRouter.defaultRouteParser(),
-      routeInformationProvider: _appRouter.routeInfoProvider(),
     );
   }
 }

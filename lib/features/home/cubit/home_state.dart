@@ -2,11 +2,7 @@ part of 'home_cubit.dart';
 
 @freezed
 abstract class HomeState with _$HomeState {
-  const factory HomeState({
-    required SideMenuSelection sideMenuSelection,
-  }) = _HomeState;
+  const factory HomeState() = _HomeState;
 
-  factory HomeState.initial() => const HomeState(
-        sideMenuSelection: SideMenuSelection.book,
-      );
+  factory HomeState.initial() => const HomeState();
 }

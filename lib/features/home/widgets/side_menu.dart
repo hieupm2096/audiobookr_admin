@@ -1,26 +1,12 @@
+import 'package:audiobookr_admin/commons/routes/router.gr.dart';
 import 'package:audiobookr_admin/gen/assets.gen.dart';
+import 'package:audiobookr_admin/commons/routes/page_route_info_ext.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-enum SideMenuSelection { dashboard, book, music, fiction }
-
-extension SideMenuSelectionExt on SideMenuSelection {
-  String get label {
-    switch (this) {
-      case SideMenuSelection.dashboard:
-        return 'Dashboard';
-      case SideMenuSelection.book:
-        return 'Book';
-      case SideMenuSelection.music:
-        return 'Music';
-      case SideMenuSelection.fiction:
-        return 'Fiction';
-    }
-  }
-}
-
 class SideMenu extends StatelessWidget {
-  final SideMenuSelection selection;
-  final Function(SideMenuSelection selection) onTap;
+  final PageRouteInfo selection;
+  final Function(PageRouteInfo route) onTap;
 
   const SideMenu({
     Key? key,
@@ -30,6 +16,11 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const dashboardRoute = DashboardRoute();
+    const bookRoute = BookRoute();
+    const musicRoute = MusicRoute();
+    const fictionRoute = FictionRoute();
+
     return Drawer(
       elevation: 0.0,
       child: ListView(
@@ -38,48 +29,48 @@ class SideMenu extends StatelessWidget {
             child: Assets.images.logo.image(),
           ),
           DrawerListTile(
-            title: SideMenuSelection.dashboard.label,
+            title: dashboardRoute.label,
             leading: Assets.icons.menu.menuDashboard.svg(
               height: 16,
-              color: selection == SideMenuSelection.dashboard
+              color: selection.routeName == DashboardRoute.name
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: selection == SideMenuSelection.dashboard,
-            onTap: () => onTap(SideMenuSelection.dashboard),
+            selected: selection.routeName == DashboardRoute.name,
+            onTap: () => onTap(dashboardRoute),
           ),
           DrawerListTile(
-            title: SideMenuSelection.book.label,
+            title: bookRoute.label,
             leading: Assets.icons.menu.menuTran.svg(
               height: 16,
-              color: selection == SideMenuSelection.book
+              color: selection.routeName == BookRoute.name
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: selection == SideMenuSelection.book,
-            onTap: () => onTap(SideMenuSelection.book),
+            selected: selection.routeName == BookRoute.name,
+            onTap: () => onTap(bookRoute),
           ),
           DrawerListTile(
-            title: SideMenuSelection.music.label,
+            title: musicRoute.label,
             leading: Assets.icons.menu.menuTask.svg(
               height: 16,
-              color: selection == SideMenuSelection.music
+              color: selection.routeName == MusicRoute.name
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: selection == SideMenuSelection.music,
-            onTap: () => onTap(SideMenuSelection.music),
+            selected: selection.routeName == MusicRoute.name,
+            onTap: () => onTap(musicRoute),
           ),
           DrawerListTile(
-            title: SideMenuSelection.fiction.label,
+            title: fictionRoute.label,
             leading: Assets.icons.menu.menuDoc.svg(
               height: 16,
-              color: selection == SideMenuSelection.fiction
+              color: selection.routeName == FictionRoute.name
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: selection == SideMenuSelection.fiction,
-            onTap: () => onTap(SideMenuSelection.fiction),
+            selected: selection.routeName == FictionRoute.name,
+            onTap: () => onTap(fictionRoute),
           ),
         ],
       ),

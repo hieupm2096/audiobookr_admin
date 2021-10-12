@@ -1,4 +1,4 @@
-import 'package:audiobookr_admin/app.dart';
+import 'package:audiobookr_admin/features/app/app.dart';
 import 'package:flutter/material.dart';
 
 void main() {

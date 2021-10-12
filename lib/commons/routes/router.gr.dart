@@ -20,24 +20,44 @@ class AppRouter extends _i6.RootStackRouter {
   @override
   final Map<String, _i6.PageFactory> pagesMap = {
     HomeRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.HomePage());
+      return _i6.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i1.HomePage(),
+          durationInMilliseconds: 0,
+          opaque: true,
+          barrierDismissible: false);
     },
     DashboardRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.DashboardPage());
+      return _i6.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i2.DashboardPage(),
+          durationInMilliseconds: 0,
+          opaque: true,
+          barrierDismissible: false);
     },
     BookRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.BookPage());
+      return _i6.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i3.BookPage(),
+          durationInMilliseconds: 0,
+          opaque: true,
+          barrierDismissible: false);
     },
     MusicRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.MusicPage());
+      return _i6.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i4.MusicPage(),
+          durationInMilliseconds: 0,
+          opaque: true,
+          barrierDismissible: false);
     },
     FictionRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i5.FictionPage());
+      return _i6.CustomPage<dynamic>(
+          routeData: routeData,
+          child: const _i5.FictionPage(),
+          durationInMilliseconds: 0,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 

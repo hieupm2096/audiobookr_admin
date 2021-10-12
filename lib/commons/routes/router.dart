@@ -6,8 +6,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:audiobookr_admin/features/home/pages/home_page.dart';
 import 'package:auto_route/annotations.dart';
 
-@MaterialAutoRouter(
+@CustomAutoRouter(
   replaceInRouteName: 'Page,Route',
+  durationInMilliseconds: 0,
+  reverseDurationInMilliseconds: 0,
   routes: <AutoRoute>[
     AutoRoute(
       path: '/',

@@ -10,7 +10,9 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  SvgGenImage get filter => const SvgGenImage('assets/icons/filter.svg');
   $AssetsIconsMenuGen get menu => const $AssetsIconsMenuGen();
+  SvgGenImage get search => const SvgGenImage('assets/icons/search.svg');
 }
 
 class $AssetsImagesGen {

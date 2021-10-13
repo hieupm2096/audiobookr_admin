@@ -5,11 +5,8 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-      child: const Center(
-        child: Text('DashboardPage'),
-      ),
+    return const Center(
+      child: Text('DashboardPage'),
     );
   }
 }

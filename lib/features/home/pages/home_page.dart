@@ -45,6 +45,11 @@ class HomePage extends StatelessWidget {
                   },
                 ),
               ),
+            if (Responsive.isDesktop(context))
+              const VerticalDivider(
+                width: 1,
+                thickness: 1,
+              ),
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,

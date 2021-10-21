@@ -114,15 +114,14 @@ class _$_RouterState implements _RouterState {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _RouterState &&
+        (other.runtimeType == runtimeType &&
+            other is _RouterState &&
             (identical(other.currentRoute, currentRoute) ||
-                const DeepCollectionEquality()
-                    .equals(other.currentRoute, currentRoute)));
+                other.currentRoute == currentRoute));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(currentRoute);
+  int get hashCode => Object.hash(runtimeType, currentRoute);
 
   @JsonKey(ignore: true)
   @override
@@ -135,7 +134,7 @@ abstract class _RouterState implements RouterState {
       _$_RouterState;
 
   @override
-  PageRouteInfo<dynamic> get currentRoute => throw _privateConstructorUsedError;
+  PageRouteInfo<dynamic> get currentRoute;
   @override
   @JsonKey(ignore: true)
   _$RouterStateCopyWith<_RouterState> get copyWith =>

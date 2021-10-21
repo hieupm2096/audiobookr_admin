@@ -78,7 +78,8 @@ class _$_HomeState with DiagnosticableTreeMixin implements _HomeState {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _HomeState);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _HomeState);
   }
 
   @override

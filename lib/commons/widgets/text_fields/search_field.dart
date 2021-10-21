@@ -10,20 +10,23 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         isDense: true,
         hintText: "Search",
         fillColor: ColorName.illusion,
         filled: true,
-        border: const OutlineInputBorder(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+        border: OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(Radius.circular(6)),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         suffixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Assets.icons.search.svg(color: Colors.white54),
         ),
       ),
+      style: Theme.of(context).textTheme.bodyText2,
     );
   }
 }

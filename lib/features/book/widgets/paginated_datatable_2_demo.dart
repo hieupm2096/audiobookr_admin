@@ -3,15 +3,17 @@ import 'package:data_table_2/paginated_data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class PaginatedDataTable2Demo extends StatefulWidget {
-  const PaginatedDataTable2Demo();
+class CustomPaginatedDataTable extends StatefulWidget {
+  const CustomPaginatedDataTable({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _PaginatedDataTable2DemoState createState() =>
-      _PaginatedDataTable2DemoState();
+  _CustomPaginatedDataTableState createState() =>
+      _CustomPaginatedDataTableState();
 }
 
-class _PaginatedDataTable2DemoState extends State<PaginatedDataTable2Demo> {
+class _CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int? _sortColumnIndex;

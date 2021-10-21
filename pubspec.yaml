@@ -27,12 +27,15 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^7.3.0
-  flutter_svg: ^0.22.0
-  freezed_annotation: ^0.14.3
+  flutter_svg: ^0.23.0+1
+  freezed_annotation: ^0.15.0
   google_fonts: ^2.1.0
   retrofit: ^2.0.1
   data_table_2: ^2.1.1
   intl: ^0.17.0
+  pretty_dio_logger: ^1.1.1
+  get_it: ^7.2.0
+  shimmer: ^2.0.0
 
 dev_dependencies:
   auto_route_generator: ^2.4.1
@@ -40,8 +43,9 @@ dev_dependencies:
   flutter_lints: ^1.0.4 # linting
   flutter_test:
     sdk: flutter
-  freezed: ^0.14.5
-  retrofit_generator: ^2.0.1+1
+  freezed: ^0.15.0+1
+  retrofit_generator: ^2.0.1+2
+  json_serializable:
 
 # The following section is specific to https://pub.dev/packages/flutter_gen
 flutter_gen:

@@ -1,11 +1,18 @@
 import 'package:audiobookr_admin/commons/responsive/responsive.dart';
-import 'package:audiobookr_admin/features/book/pages/paginated_datatable_2_demo.dart';
-import 'package:audiobookr_admin/features/music/widgets/text_field/search_field.dart';
+import 'package:audiobookr_admin/commons/widgets/buttons/custom_icon_button.dart';
+import 'package:audiobookr_admin/commons/widgets/buttons/primary_button.dart';
+import 'package:audiobookr_admin/commons/widgets/fade_shimmer/cell_fade_shimmer.dart';
+import 'package:audiobookr_admin/features/book/bloc/book_bloc.dart';
+import 'package:audiobookr_admin/features/book/widgets/book_cells_shimmer.dart';
+import 'package:audiobookr_admin/features/book/widgets/book_datatable.dart';
+import 'package:audiobookr_admin/commons/widgets/text_fields/search_field.dart';
+import 'package:audiobookr_admin/features/book/widgets/refresh_button.dart';
 import 'package:audiobookr_admin/gen/assets.gen.dart';
 import 'package:audiobookr_admin/gen/colors.gen.dart';
-import 'package:data_table_2/data_table_2.dart';
+import 'package:audiobookr_admin/injection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookPage extends StatelessWidget {
   const BookPage({Key? key}) : super(key: key);
@@ -15,63 +22,85 @@ class BookPage extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Upper
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton.icon(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 16,
-                    ),
-                  ),
-                  onPressed: () {},
-                  icon: const Icon(Icons.add),
-                  label: const Text("Add New"),
-                ),
-                const SizedBox(width: 16.0),
-                if (Responsive.isDesktop(context)) const Spacer(),
-                const Expanded(child: SearchField()),
-                const SizedBox(width: 8.0),
-                Material(
-                  color: ColorName.illusion,
-                  borderRadius: BorderRadius.circular(6.0),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(6.0),
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 10,
+        child: BlocProvider(
+          create: (context) => getIt<BookBloc>()..add(const BooksFetchEvent()),
+          child: Builder(
+            builder: (context) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Upper
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PrimaryButton(
+                        title: 'Add new',
+                        icon: const Icon(Icons.add),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(12.0, 0.0, 16.0, 0.0),
+                        onTap: () {},
                       ),
-                      child: Assets.icons.filter.svg(color: Colors.white70),
+                      const SizedBox(width: 16.0),
+                      if (Responsive.isDesktop(context)) const Spacer(),
+                      BlocSelector<BookBloc, BookState, bool>(
+                        selector: (state) => state.loading,
+                        builder: (context, loading) {
+                          return RefreshButton(
+                            isLoading: loading,
+                            onTap: () => context
+                                .read<BookBloc>()
+                                .add(const BooksFetchEvent()),
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 8.0),
+                      CustomIconButton(
+                        icon: Assets.icons.filter.svg(color: Colors.white70),
+                        onTap: () {},
+                      ),
+                      const SizedBox(width: 8.0),
+                      const Expanded(child: SearchField()),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20.0),
+
+                  // Lower
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3.0),
+                        color: ColorName.illusion,
+                      ),
+                      child: BlocBuilder<BookBloc, BookState>(
+                        builder: (context, state) {
+                          return Stack(
+                            children: [
+                              IgnorePointer(
+                                ignoring: state.loading,
+                                child: BookPaginatedDataTable(
+                                  dataSource: BookDataTableSource(
+                                    state.books ?? [],
+                                    isLoading: state.loading,
+                                  ),
+                                ),
+                              ),
+                              if (state.loading) const BookCellsShimmer(),
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
 
-            const SizedBox(height: 20.0),
-
-            // Lower
-            Flexible(
-              fit: FlexFit.loose,
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3.0),
-                  color: ColorName.illusion,
-                ),
-                child: const PaginatedDataTable2Demo(),
-              ),
-            ),
-
-            const SizedBox(height: 20.0),
-          ],
+                  const SizedBox(height: 20.0),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

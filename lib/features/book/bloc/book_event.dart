@@ -1,7 +1,12 @@
 part of 'book_bloc.dart';
 
-@freezed
-@immutable
-class BookEvent with _$BookEvent {
-  const factory BookEvent.fetchBooks() = BooksFetchEvent;
+abstract class BookEvent extends Equatable {
+  const BookEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class BooksFetchEvent extends BookEvent {
+  const BooksFetchEvent() : super();
 }

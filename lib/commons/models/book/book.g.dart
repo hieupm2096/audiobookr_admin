@@ -6,26 +6,26 @@ part of 'book.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Book _$$_BookFromJson(Map<String, dynamic> json) => _$_Book(
-      json['id'] as String,
-      json['name'] as String,
-      json['description'] as String?,
-      json['featureImage'] as String?,
-      json['coverImage'] as String?,
-      json['listenUrl'] as String?,
-      json['likeCount'] as int?,
-      json['listenCount'] as int?,
-      json['viewCount'] as int?,
-      json['createdDate'] == null
+Book _$BookFromJson(Map<String, dynamic> json) => Book(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      featureImage: json['featureImage'] as String?,
+      coverImage: json['coverImage'] as String?,
+      listenUrl: json['listenUrl'] as String?,
+      likeCount: json['likeCount'] as int?,
+      listenCount: json['listenCount'] as int?,
+      viewCount: json['viewCount'] as int?,
+      createdDate: json['createdDate'] == null
           ? null
           : DateTime.parse(json['createdDate'] as String),
-      json['updatedDate'] == null
+      updatedDate: json['updatedDate'] == null
           ? null
           : DateTime.parse(json['updatedDate'] as String),
-      json['status'] as int?,
+      status: json['status'] as int?,
     );
 
-Map<String, dynamic> _$$_BookToJson(_$_Book instance) => <String, dynamic>{
+Map<String, dynamic> _$BookToJson(Book instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,

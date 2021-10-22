@@ -1,25 +1,48 @@
 part of 'book_bloc.dart';
 
-@immutable
-@freezed
-class BookState with _$BookState {
-  const factory BookState({
-    required bool loading,
-    List<Book>? books,
-    String? error,
-  }) = _BookState;
+abstract class BookState extends Equatable {
+  const BookState();
+}
 
-  factory BookState.initial() => const BookState(loading: false);
+class BookInitial extends BookState {
+  @override
+  List<Object> get props => [];
+}
 
-  factory BookState.loading() => const BookState(loading: true);
+class BookLoading extends BookState {
+  @override
+  List<Object> get props => [];
+}
 
-  factory BookState.success(List<Book> books) => BookState(
-        loading: false,
-        books: books,
-      );
+class BooksLoaded extends BookState {
+  final List<Book> books;
 
-  factory BookState.failure(String message) => BookState(
-        loading: false,
-        error: message,
-      );
+  const BooksLoaded(this.books);
+
+  @override
+  List<Object> get props => [books];
+}
+
+class BookLoaded extends BookState {
+  final Book book;
+
+  const BookLoaded(this.book);
+
+  @override
+  List<Object> get props => [book];
+
+  @override
+  bool? get stringify => true;
+}
+
+class BookFailure extends BookState {
+  final String message;
+
+  const BookFailure(this.message);
+
+  @override
+  List<Object> get props => [message];
+
+  @override
+  bool? get stringify => true;
 }

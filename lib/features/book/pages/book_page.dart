@@ -1,7 +1,6 @@
 import 'package:audiobookr_admin/commons/responsive/responsive.dart';
 import 'package:audiobookr_admin/commons/widgets/buttons/custom_icon_button.dart';
 import 'package:audiobookr_admin/commons/widgets/buttons/primary_button.dart';
-import 'package:audiobookr_admin/commons/widgets/fade_shimmer/cell_fade_shimmer.dart';
 import 'package:audiobookr_admin/features/book/bloc/book_bloc.dart';
 import 'package:audiobookr_admin/features/book/widgets/book_cells_shimmer.dart';
 import 'package:audiobookr_admin/features/book/widgets/book_datatable.dart';
@@ -43,11 +42,10 @@ class BookPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 16.0),
                       if (Responsive.isDesktop(context)) const Spacer(),
-                      BlocSelector<BookBloc, BookState, bool>(
-                        selector: (state) => state.loading,
-                        builder: (context, loading) {
+                      BlocBuilder<BookBloc, BookState>(
+                        builder: (context, state) {
                           return RefreshButton(
-                            isLoading: loading,
+                            isLoading: state is BookLoading,
                             onTap: () => context
                                 .read<BookBloc>()
                                 .add(const BooksFetchEvent()),
@@ -80,15 +78,16 @@ class BookPage extends StatelessWidget {
                           return Stack(
                             children: [
                               IgnorePointer(
-                                ignoring: state.loading,
+                                ignoring: state is BookLoading,
                                 child: BookPaginatedDataTable(
                                   dataSource: BookDataTableSource(
-                                    state.books ?? [],
-                                    isLoading: state.loading,
+                                    state is BooksLoaded ? state.books : [],
+                                    isLoading: state is BookLoading,
                                   ),
                                 ),
                               ),
-                              if (state.loading) const BookCellsShimmer(),
+                              if (state is BookLoading)
+                                const BookCellsShimmer(),
                             ],
                           );
                         },

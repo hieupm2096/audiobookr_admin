@@ -1,12 +1,20 @@
 part of 'router_cubit.dart';
 
-@freezed
-class RouterState with _$RouterState {
-  const factory RouterState({
-    required PageRouteInfo currentRoute,
-  }) = _RouterState;
+class RouterState extends Equatable {
+  final PageRouteInfo currentRoute;
 
-  factory RouterState.initial() => const RouterState(
-        currentRoute: DashboardRoute(),
-      );
+  const RouterState({
+    this.currentRoute = const BookRoute(),
+  });
+
+  @override
+  List<Object> get props => [currentRoute];
+
+  @override
+  bool? get stringify => true;
+
+  RouterState copyWith({
+    PageRouteInfo? currentRoute,
+  }) =>
+      RouterState(currentRoute: currentRoute ?? this.currentRoute);
 }

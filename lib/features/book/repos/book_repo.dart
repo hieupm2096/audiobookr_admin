@@ -1,8 +1,8 @@
 import 'package:audiobookr_admin/commons/api/client/book_client.dart';
 import 'package:audiobookr_admin/commons/api/interceptor/app_interceptor.dart';
 import 'package:audiobookr_admin/commons/models/failures/failures.dart';
-import 'package:audiobookr_admin/commons/models/result/result.dart';
 import 'package:audiobookr_admin/commons/models/book/book.dart';
+import 'package:simple_result/simple_result.dart';
 
 abstract class IBookRepository {
   Future<Result<List<Book>, Failure>> getBooks();

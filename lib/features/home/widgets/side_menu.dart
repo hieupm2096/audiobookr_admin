@@ -17,7 +17,7 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const dashboardRoute = DashboardRoute();
-    const bookRoute = BookRoute();
+    const booksRoute = BooksRoute();
     const musicRoute = MusicRoute();
     const fictionRoute = FictionRoute();
 
@@ -40,15 +40,15 @@ class SideMenu extends StatelessWidget {
             onTap: () => onTap(dashboardRoute),
           ),
           DrawerListTile(
-            title: bookRoute.label,
+            title: booksRoute.label,
             leading: Assets.icons.menu.menuTran.svg(
               height: 16,
-              color: selection.routeName == BookRoute.name
+              color: selection.routeName == BooksRoute.name
                   ? Colors.white
                   : Colors.white30,
             ),
-            selected: selection.routeName == BookRoute.name,
-            onTap: () => onTap(bookRoute),
+            selected: selection.routeName == BooksRoute.name,
+            onTap: () => onTap(booksRoute),
           ),
           DrawerListTile(
             title: musicRoute.label,

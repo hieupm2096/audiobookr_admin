@@ -8,8 +8,10 @@ extension PageRouteInfoExt on PageRouteInfo {
         return 'Home';
       case DashboardRoute.name:
         return 'Dashboard';
-      case BookRoute.name:
+      case BooksRoute.name:
         return 'Book';
+      case CreateBookRoute.name:
+        return 'Add new book';
       case MusicRoute.name:
         return 'Music';
       case FictionRoute.name:

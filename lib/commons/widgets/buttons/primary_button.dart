@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class PrimaryButton extends StatelessWidget {
   final String title;
   final Widget? icon;
-  final Function? onTap;
+  final void Function()? onTap;
   final EdgeInsets? contentPadding;
 
   const PrimaryButton({
@@ -22,7 +22,7 @@ class PrimaryButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(6.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(6.0),
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           padding: contentPadding,
           height: 39,

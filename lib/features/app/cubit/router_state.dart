@@ -4,7 +4,7 @@ class RouterState extends Equatable {
   final PageRouteInfo currentRoute;
 
   const RouterState({
-    this.currentRoute = const BookRoute(),
+    this.currentRoute = const BooksRoute(),
   });
 
   @override
@@ -15,6 +15,8 @@ class RouterState extends Equatable {
 
   RouterState copyWith({
     PageRouteInfo? currentRoute,
-  }) =>
-      RouterState(currentRoute: currentRoute ?? this.currentRoute);
+  }) {
+    print('copyWith');
+    return RouterState(currentRoute: currentRoute ?? this.currentRoute);
+  }
 }

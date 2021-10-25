@@ -1,6 +1,8 @@
 import 'package:audiobookr_admin/commons/responsive/responsive.dart';
+import 'package:audiobookr_admin/commons/routes/router.gr.dart';
 import 'package:audiobookr_admin/commons/widgets/buttons/custom_icon_button.dart';
 import 'package:audiobookr_admin/commons/widgets/buttons/primary_button.dart';
+import 'package:audiobookr_admin/features/app/cubit/router_cubit.dart';
 import 'package:audiobookr_admin/features/book/bloc/book_bloc.dart';
 import 'package:audiobookr_admin/features/book/widgets/book_cells_shimmer.dart';
 import 'package:audiobookr_admin/features/book/widgets/book_datatable.dart';
@@ -13,8 +15,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BookPage extends StatelessWidget {
-  const BookPage({Key? key}) : super(key: key);
+class BooksPage extends StatelessWidget {
+  const BooksPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,12 @@ class BookPage extends StatelessWidget {
                         icon: const Icon(Icons.add),
                         contentPadding:
                             const EdgeInsets.fromLTRB(12.0, 0.0, 16.0, 0.0),
-                        onTap: () {},
+                        onTap: () {
+                          print('on Add new tapped');
+                          context
+                              .read<RouterCubit>()
+                              .setCurrentRoute(const CreateBookRoute());
+                        },
                       ),
                       const SizedBox(width: 16.0),
                       if (Responsive.isDesktop(context)) const Spacer(),

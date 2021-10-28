@@ -26,6 +26,10 @@ class BookRepository extends IBookRepository {
       return Result.failure(UnauthorizedFailure());
     } on NoInternetConnectionException {
       return const Result.failure(NoInternetConnectionFailure());
+    } on TimeoutException {
+      return Result.failure(TimeoutFailure());
+    } on Exception {
+      return const Result.failure(UnknownFailure());
     }
   }
 }

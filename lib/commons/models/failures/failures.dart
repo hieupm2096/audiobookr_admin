@@ -23,3 +23,7 @@ class NoInternetConnectionFailure extends Failure {
 }
 
 class TimeoutFailure extends Failure {}
+
+class UnknownFailure extends Failure {
+  const UnknownFailure() : super(message: 'Unknown error, please retry later.');
+}

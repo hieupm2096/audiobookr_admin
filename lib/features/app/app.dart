@@ -1,5 +1,5 @@
 import 'package:audiobookr_admin/commons/routes/router.gr.dart';
-import 'package:audiobookr_admin/features/app/cubit/router_cubit.dart';
+import 'package:audiobookr_admin/features/app/bloc/app_bloc.dart';
 import 'package:audiobookr_admin/gen/colors.gen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
       ),
       builder: (context, child) => MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => RouterCubit()),
+          BlocProvider(create: (context) => AppBloc()),
         ],
         child: Router(
           routerDelegate: AutoRouterDelegate(_appRouter),

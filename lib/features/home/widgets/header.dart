@@ -1,5 +1,8 @@
 import 'package:audiobookr_admin/commons/responsive/responsive.dart';
+import 'package:audiobookr_admin/commons/routes/auto_router_x.dart';
+import 'package:audiobookr_admin/commons/widgets/buttons/custom_icon_button.dart';
 import 'package:audiobookr_admin/gen/colors.gen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
@@ -19,6 +22,13 @@ class Header extends StatelessWidget {
             icon: const Icon(Icons.menu),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
+        if (context.watchRouter.canPopSelfOrChildren)
+          CustomIconButton(
+            icon: const Icon(CupertinoIcons.back),
+            onTap: context.router.popTop,
+          ),
+        if (context.watchRouter.canPopSelfOrChildren)
+          const SizedBox(width: 16.0),
         if (!Responsive.isDesktop(context)) const SizedBox(width: 8.0),
         if (!Responsive.isMobile(context))
           Text(

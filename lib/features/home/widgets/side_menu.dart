@@ -5,72 +5,39 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class SideMenu extends StatelessWidget {
-  final PageRouteInfo selection;
-  final Function(PageRouteInfo route) onTap;
+  final List<PageRouteInfo> tabRoutes;
+  final int selectedIndex;
+  final Function(int index) onTap;
 
   const SideMenu({
     Key? key,
-    required this.selection,
+    required this.tabRoutes,
+    required this.selectedIndex,
     required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const dashboardRoute = DashboardRoute();
-    const booksRoute = BooksRoute();
-    const musicRoute = MusicRoute();
-    const fictionRoute = FictionRoute();
-
     return Drawer(
       elevation: 0.0,
-      child: ListView(
+      child: Column(
         children: [
-          DrawerHeader(
-            child: Assets.images.logo.image(),
-          ),
-          DrawerListTile(
-            title: dashboardRoute.label,
-            leading: Assets.icons.menu.menuDashboard.svg(
-              height: 16,
-              color: selection.routeName == DashboardRoute.name
-                  ? Colors.white
-                  : Colors.white30,
+          DrawerHeader(child: Assets.images.logo.image()),
+          Expanded(
+            child: ListView.builder(
+              itemCount: tabRoutes.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final route = tabRoutes[index];
+                final isSelected = index == selectedIndex;
+                return DrawerListTile(
+                  title: route.label,
+                  leading: route.getIcon(isSelected),
+                  selected: isSelected,
+                  onTap: () => onTap(index),
+                );
+              },
             ),
-            selected: selection.routeName == DashboardRoute.name,
-            onTap: () => onTap(dashboardRoute),
-          ),
-          DrawerListTile(
-            title: booksRoute.label,
-            leading: Assets.icons.menu.menuTran.svg(
-              height: 16,
-              color: selection.routeName == BooksRoute.name
-                  ? Colors.white
-                  : Colors.white30,
-            ),
-            selected: selection.routeName == BooksRoute.name,
-            onTap: () => onTap(booksRoute),
-          ),
-          DrawerListTile(
-            title: musicRoute.label,
-            leading: Assets.icons.menu.menuTask.svg(
-              height: 16,
-              color: selection.routeName == MusicRoute.name
-                  ? Colors.white
-                  : Colors.white30,
-            ),
-            selected: selection.routeName == MusicRoute.name,
-            onTap: () => onTap(musicRoute),
-          ),
-          DrawerListTile(
-            title: fictionRoute.label,
-            leading: Assets.icons.menu.menuDoc.svg(
-              height: 16,
-              color: selection.routeName == FictionRoute.name
-                  ? Colors.white
-                  : Colors.white30,
-            ),
-            selected: selection.routeName == FictionRoute.name,
-            onTap: () => onTap(fictionRoute),
           ),
         ],
       ),
@@ -106,5 +73,34 @@ class DrawerListTile extends StatelessWidget {
       ),
       selected: selected,
     );
+  }
+}
+
+extension PageRouteInfoSideMenu on PageRouteInfo {
+  Widget getIcon(bool isSelected) {
+    switch (routeName) {
+      case DashboardRouter.name:
+        return Assets.icons.menu.menuDashboard.svg(
+          height: 16,
+          color: isSelected ? Colors.white : Colors.white30,
+        );
+      case BookRouter.name:
+        return Assets.icons.menu.menuTran.svg(
+          height: 16,
+          color: isSelected ? Colors.white : Colors.white30,
+        );
+      case MusicRouter.name:
+        return Assets.icons.menu.menuTask.svg(
+          height: 16,
+          color: isSelected ? Colors.white : Colors.white30,
+        );
+      case FictionRouter.name:
+        return Assets.icons.menu.menuDoc.svg(
+          height: 16,
+          color: isSelected ? Colors.white : Colors.white30,
+        );
+      default:
+        return const SizedBox.shrink();
+    }
   }
 }

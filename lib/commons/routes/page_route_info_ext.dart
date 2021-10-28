@@ -6,15 +6,15 @@ extension PageRouteInfoExt on PageRouteInfo {
     switch (routeName) {
       case HomeRoute.name:
         return 'Home';
-      case DashboardRoute.name:
+      case DashboardRouter.name:
         return 'Dashboard';
-      case BooksRoute.name:
+      case BookRouter.name:
         return 'Book';
-      case CreateBookRoute.name:
+      case BookDetailsRoute.name:
         return 'Add new book';
-      case MusicRoute.name:
+      case MusicRouter.name:
         return 'Music';
-      case FictionRoute.name:
+      case FictionRouter.name:
         return 'Fiction';
       default:
         return 'Unknown';

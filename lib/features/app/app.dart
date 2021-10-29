@@ -26,10 +26,13 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => AppBloc()),
         ],
-        child: Router(
-          routerDelegate: AutoRouterDelegate(_appRouter),
-          routeInformationParser: _appRouter.defaultRouteParser(),
-          routeInformationProvider: _appRouter.routeInfoProvider(),
+        child: GestureDetector(
+          onTap: FocusScope.of(context).unfocus,
+          child: Router(
+            routerDelegate: AutoRouterDelegate(_appRouter),
+            routeInformationParser: _appRouter.defaultRouteParser(),
+            routeInformationProvider: _appRouter.routeInfoProvider(),
+          ),
         ),
       ),
     );

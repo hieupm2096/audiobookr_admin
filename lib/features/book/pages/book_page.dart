@@ -21,7 +21,8 @@ class BookPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
+      child: Container(
+        color: Colors.transparent,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: BlocProvider(
           create: (context) => getIt<BookBloc>()..add(const BooksFetchEvent()),
@@ -40,11 +41,8 @@ class BookPage extends StatelessWidget {
                         icon: const Icon(Icons.add),
                         contentPadding:
                             const EdgeInsets.fromLTRB(12.0, 0.0, 16.0, 0.0),
-                        onTap: () {
-                          print('on Add new tapped');
-                          // TODO: navigate to book details page
-                          context.navigateTo(const BookDetailsRoute());
-                        },
+                        onTap: () =>
+                            context.navigateTo(const BookDetailsRoute()),
                       ),
                       const SizedBox(width: 16.0),
                       if (Responsive.isDesktop(context)) const Spacer(),
